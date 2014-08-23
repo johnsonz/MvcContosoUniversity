@@ -1,6 +1,7 @@
 MvcContosoUniversity
 ====================
 Getting Started with EF 6 using MVC 5
+====================================
 
 1.Getting Started with Entity Framework 6 Code First using MVC 5
 
