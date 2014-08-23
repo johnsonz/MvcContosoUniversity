@@ -1,5 +1,4 @@
-MvcContosoUniversity
-====================
+
 Getting Started with EF 6 using MVC 5
 ====================================
 
