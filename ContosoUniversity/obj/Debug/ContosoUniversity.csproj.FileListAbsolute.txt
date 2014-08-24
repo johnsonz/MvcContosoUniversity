@@ -28,3 +28,7 @@ D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\bin\Entit
 D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\bin\EntityFramework.SqlServer.dll
 D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\bin\EntityFramework.xml
 D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\bin\EntityFramework.SqlServer.xml
+D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\bin\PagedList.dll
+D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\bin\PagedList.Mvc.dll
+D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\bin\PagedList.xml
+D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\bin\PagedList.Mvc.xml
