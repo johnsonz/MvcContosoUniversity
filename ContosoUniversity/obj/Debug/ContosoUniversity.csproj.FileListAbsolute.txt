@@ -37,3 +37,4 @@ D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\obj\Debug
 D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.MaxLengthOnNames.resources
 D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.ColumnFirstName.resources
 D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.ComplexDataModel.resources
+D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.DepartmentSP.resources
