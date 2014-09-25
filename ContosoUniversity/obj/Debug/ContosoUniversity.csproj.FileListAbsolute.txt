@@ -39,3 +39,4 @@ D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\obj\Debug
 D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.ComplexDataModel.resources
 D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.DepartmentSP.resources
 D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.RowVersion.resources
+D:\Visual Studio 2013 Workspace\MvcContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.Inheritance.resources
