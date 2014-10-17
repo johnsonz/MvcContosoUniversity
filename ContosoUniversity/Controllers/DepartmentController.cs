@@ -31,7 +31,9 @@ namespace ContosoUniversity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department = await db.Departments.FindAsync(id);
+            //Department department = await db.Departments.FindAsync(id);
+            string query = "SELECT * FROM Department WHERE DepartmentID = @p0";
+            Department department = await db.Departments.SqlQuery(query, id).SingleOrDefaultAsync();
             if (department == null)
             {
                 return HttpNotFound();
@@ -102,6 +104,10 @@ namespace ContosoUniversity.Controllers
         {
             try
             {
+                if (ModelState.IsValid)
+                {
+                    ValidateOneAdministratorAssignmentPerInstructor(department);
+                }
                 if (ModelState.IsValid)
                 {
                     db.Entry(department).State = EntityState.Modified;
@@ -241,6 +247,26 @@ namespace ContosoUniversity.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        private void ValidateOneAdministratorAssignmentPerInstructor(Department department)
+        {
+            if (department.InstructorID != null)
+            {
+                Department duplicateDepartment = db.Departments
+                    .Include("Administrator")
+                    .Where(d => d.InstructorID == department.InstructorID)
+                    .AsNoTracking()
+                    .FirstOrDefault();
+                if (duplicateDepartment != null && duplicateDepartment.DepartmentID != department.DepartmentID)
+                {
+                    string errorMessage = String.Format(
+                        "Instructor {0} {1} is already administrator of the {2} department.",
+                        duplicateDepartment.Administrator.FirstMidName,
+                        duplicateDepartment.Administrator.LastName,
+                        duplicateDepartment.Name);
+                    ModelState.AddModelError(string.Empty, errorMessage);
+                }
+            }
         }
     }
 }

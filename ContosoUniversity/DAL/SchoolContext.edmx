@@ -1,0 +1,527 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Edmx Version="3.0" xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <Runtime>
+    <ConceptualModels>
+      <Schema Namespace="ContosoUniversity.DAL" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Course" customannotation:ClrType="ContosoUniversity.Models.Course, ContosoUniversity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Credits" Type="Int32" Nullable="false" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Department" Relationship="Self.Department_Courses" FromRole="Department_Courses_Target" ToRole="Department_Courses_Source" />
+          <NavigationProperty Name="Enrollments" Relationship="Self.Enrollment_Course" FromRole="Enrollment_Course_Target" ToRole="Enrollment_Course_Source" />
+          <NavigationProperty Name="Instructors" Relationship="Self.Course_Instructors" FromRole="Course_Instructors_Source" ToRole="Course_Instructors_Target" />
+        </EntityType>
+        <EntityType Name="Department" customannotation:ClrType="ContosoUniversity.Models.Department, ContosoUniversity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Budget" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" />
+          <Property Name="InstructorID" Type="Int32" />
+          <Property Name="RowVersion" Type="Binary" ConcurrencyMode="Fixed" MaxLength="8" FixedLength="false" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Administrator" Relationship="Self.Department_Administrator" FromRole="Department_Administrator_Source" ToRole="Department_Administrator_Target" />
+          <NavigationProperty Name="Courses" Relationship="Self.Department_Courses" FromRole="Department_Courses_Source" ToRole="Department_Courses_Target" />
+        </EntityType>
+        <EntityType Name="Instructor" customannotation:ClrType="ContosoUniversity.Models.Instructor, ContosoUniversity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" BaseType="Self.Person">
+          <Property Name="HireDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Courses" Relationship="Self.Course_Instructors" FromRole="Course_Instructors_Target" ToRole="Course_Instructors_Source" />
+          <NavigationProperty Name="OfficeAssignment" Relationship="Self.OfficeAssignment_Instructor" FromRole="OfficeAssignment_Instructor_Target" ToRole="OfficeAssignment_Instructor_Source" />
+        </EntityType>
+        <EntityType Name="OfficeAssignment" customannotation:ClrType="ContosoUniversity.Models.OfficeAssignment, ContosoUniversity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="InstructorID" />
+          </Key>
+          <Property Name="InstructorID" Type="Int32" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Instructor" Relationship="Self.OfficeAssignment_Instructor" FromRole="OfficeAssignment_Instructor_Source" ToRole="OfficeAssignment_Instructor_Target" />
+        </EntityType>
+        <EntityType Name="Enrollment" customannotation:ClrType="ContosoUniversity.Models.Enrollment, ContosoUniversity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="EnrollmentID" />
+          </Key>
+          <Property Name="EnrollmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="Grade" Type="Self.Grade" />
+          <NavigationProperty Name="Course" Relationship="Self.Enrollment_Course" FromRole="Enrollment_Course_Source" ToRole="Enrollment_Course_Target" />
+          <NavigationProperty Name="Student" Relationship="Self.Student_Enrollments" FromRole="Student_Enrollments_Target" ToRole="Student_Enrollments_Source" />
+        </EntityType>
+        <EntityType Name="Student" customannotation:ClrType="ContosoUniversity.Models.Student, ContosoUniversity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" BaseType="Self.Person">
+          <Property Name="EnrollmentDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Enrollments" Relationship="Self.Student_Enrollments" FromRole="Student_Enrollments_Source" ToRole="Student_Enrollments_Target" />
+        </EntityType>
+        <EntityType Name="Person" customannotation:ClrType="ContosoUniversity.Models.Person, ContosoUniversity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstMidName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EnumType Name="Grade" IsFlags="false" customannotation:ClrType="ContosoUniversity.Models.Grade, ContosoUniversity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" UnderlyingType="Int32">
+          <Member Name="A" Value="0" />
+          <Member Name="B" Value="1" />
+          <Member Name="C" Value="2" />
+          <Member Name="D" Value="3" />
+          <Member Name="F" Value="4" />
+        </EnumType>
+        <Association Name="OfficeAssignment_Instructor">
+          <End Role="OfficeAssignment_Instructor_Source" Type="Self.OfficeAssignment" Multiplicity="0..1" />
+          <End Role="OfficeAssignment_Instructor_Target" Type="Self.Instructor" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="OfficeAssignment_Instructor_Target">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OfficeAssignment_Instructor_Source">
+              <PropertyRef Name="InstructorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Department_Administrator">
+          <End Role="Department_Administrator_Source" Type="Self.Department" Multiplicity="*" />
+          <End Role="Department_Administrator_Target" Type="Self.Instructor" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Department_Administrator_Target">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Department_Administrator_Source">
+              <PropertyRef Name="InstructorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Department_Courses">
+          <End Role="Department_Courses_Source" Type="Self.Department" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Department_Courses_Target" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department_Courses_Source">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Department_Courses_Target">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Enrollment_Course">
+          <End Role="Enrollment_Course_Source" Type="Self.Enrollment" Multiplicity="*" />
+          <End Role="Enrollment_Course_Target" Type="Self.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="Enrollment_Course_Target">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Enrollment_Course_Source">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Student_Enrollments">
+          <End Role="Student_Enrollments_Source" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Student_Enrollments_Target" Type="Self.Enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student_Enrollments_Source">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Student_Enrollments_Target">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Course_Instructors">
+          <End Role="Course_Instructors_Source" Type="Self.Course" Multiplicity="*" />
+          <End Role="Course_Instructors_Target" Type="Self.Instructor" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="SchoolContext" customannotation:UseClrTypes="true">
+          <EntitySet Name="Courses" EntityType="Self.Course" />
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="OfficeAssignments" EntityType="Self.OfficeAssignment" />
+          <EntitySet Name="Enrollments" EntityType="Self.Enrollment" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <AssociationSet Name="OfficeAssignment_Instructor" Association="Self.OfficeAssignment_Instructor">
+            <End Role="OfficeAssignment_Instructor_Source" EntitySet="OfficeAssignments" />
+            <End Role="OfficeAssignment_Instructor_Target" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="Department_Administrator" Association="Self.Department_Administrator">
+            <End Role="Department_Administrator_Source" EntitySet="Departments" />
+            <End Role="Department_Administrator_Target" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="Department_Courses" Association="Self.Department_Courses">
+            <End Role="Department_Courses_Source" EntitySet="Departments" />
+            <End Role="Department_Courses_Target" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="Enrollment_Course" Association="Self.Enrollment_Course">
+            <End Role="Enrollment_Course_Source" EntitySet="Enrollments" />
+            <End Role="Enrollment_Course_Target" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="Student_Enrollments" Association="Self.Student_Enrollments">
+            <End Role="Student_Enrollments_Source" EntitySet="People" />
+            <End Role="Student_Enrollments_Target" EntitySet="Enrollments" />
+          </AssociationSet>
+          <AssociationSet Name="Course_Instructors" Association="Self.Course_Instructors">
+            <End Role="Course_Instructors_Source" EntitySet="Courses" />
+            <End Role="Course_Instructors_Target" EntitySet="People" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </ConceptualModels>
+    <Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CodeFirstDatabase" CdmEntityContainer="SchoolContext">
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="ContosoUniversity.DAL.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Credits" ColumnName="Credits" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="ContosoUniversity.DAL.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Budget" ColumnName="Budget" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
+                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="ContosoUniversity.DAL.Department">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="CodeFirstDatabaseSchema.Department_Insert">
+                  <ScalarProperty Name="Name" ParameterName="Name" Version="Current" />
+                  <ScalarProperty Name="Budget" ParameterName="Budget" Version="Current" />
+                  <ScalarProperty Name="StartDate" ParameterName="StartDate" Version="Current" />
+                  <ScalarProperty Name="InstructorID" ParameterName="InstructorID" Version="Current" />
+                  <ResultBinding Name="DepartmentID" ColumnName="DepartmentID" />
+                  <ResultBinding Name="RowVersion" ColumnName="RowVersion" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="CodeFirstDatabaseSchema.Department_Update">
+                  <ScalarProperty Name="DepartmentID" ParameterName="DepartmentID" Version="Current" />
+                  <ScalarProperty Name="Name" ParameterName="Name" Version="Current" />
+                  <ScalarProperty Name="Budget" ParameterName="Budget" Version="Current" />
+                  <ScalarProperty Name="StartDate" ParameterName="StartDate" Version="Current" />
+                  <ScalarProperty Name="InstructorID" ParameterName="InstructorID" Version="Current" />
+                  <ScalarProperty Name="RowVersion" ParameterName="RowVersion_Original" Version="Original" />
+                  <ResultBinding Name="RowVersion" ColumnName="RowVersion" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="CodeFirstDatabaseSchema.Department_Delete">
+                  <ScalarProperty Name="DepartmentID" ParameterName="DepartmentID" Version="Original" />
+                  <ScalarProperty Name="RowVersion" ParameterName="RowVersion_Original" Version="Original" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="ContosoUniversity.DAL.Instructor">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <Condition Value="Instructor" ColumnName="Discriminator" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="ContosoUniversity.DAL.Student">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EnrollmentDate" ColumnName="EnrollmentDate" />
+                <Condition Value="Student" ColumnName="Discriminator" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(ContosoUniversity.DAL.Person)">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstMidName" ColumnName="FirstName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="ContosoUniversity.DAL.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <Condition Value="Person" ColumnName="Discriminator" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OfficeAssignments">
+            <EntityTypeMapping TypeName="ContosoUniversity.DAL.OfficeAssignment">
+              <MappingFragment StoreEntitySet="OfficeAssignment">
+                <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enrollments">
+            <EntityTypeMapping TypeName="ContosoUniversity.DAL.Enrollment">
+              <MappingFragment StoreEntitySet="Enrollment">
+                <ScalarProperty Name="EnrollmentID" ColumnName="EnrollmentID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Course_Instructors" TypeName="ContosoUniversity.DAL.Course_Instructors" StoreEntitySet="CourseInstructor">
+            <EndProperty Name="Course_Instructors_Source">
+              <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+            </EndProperty>
+            <EndProperty Name="Course_Instructors_Target">
+              <ScalarProperty Name="ID" ColumnName="InstructorID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </Mappings>
+    <StorageModels>
+      <Schema Namespace="CodeFirstDatabaseSchema" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="true" />
+          <Property Name="Credits" Type="int" Nullable="false" />
+          <Property Name="DepartmentID" Type="int" customannotation:Index="{ Name: IX_DepartmentID, Order: 0 }" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="true" />
+          <Property Name="Budget" Type="money" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="InstructorID" Type="int" customannotation:Index="{ Name: IX_InstructorID, Order: 0 }" Nullable="true" />
+          <Property Name="RowVersion" Type="rowversion" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="HireDate" Type="datetime" Nullable="true" />
+          <Property Name="EnrollmentDate" Type="datetime" Nullable="true" />
+          <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OfficeAssignment">
+          <Key>
+            <PropertyRef Name="InstructorID" />
+          </Key>
+          <Property Name="InstructorID" Type="int" customannotation:Index="{ Name: IX_InstructorID, Order: 0 }" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="50" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Enrollment">
+          <Key>
+            <PropertyRef Name="EnrollmentID" />
+          </Key>
+          <Property Name="EnrollmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseID" Type="int" customannotation:Index="{ Name: IX_CourseID, Order: 0 }" Nullable="false" />
+          <Property Name="StudentID" Type="int" customannotation:Index="{ Name: IX_StudentID, Order: 0 }" Nullable="false" />
+          <Property Name="Grade" Type="int" Nullable="true" />
+        </EntityType>
+        <EntityType Name="CourseInstructor">
+          <Key>
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="InstructorID" />
+          </Key>
+          <Property Name="CourseID" Type="int" customannotation:Index="{ Name: IX_CourseID, Order: 0 }" Nullable="false" />
+          <Property Name="InstructorID" Type="int" customannotation:Index="{ Name: IX_InstructorID, Order: 0 }" Nullable="false" />
+        </EntityType>
+        <Association Name="OfficeAssignment_Instructor">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="OfficeAssignment" Type="Self.OfficeAssignment" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OfficeAssignment">
+              <PropertyRef Name="InstructorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Department_Administrator">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Department" Type="Self.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="InstructorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Department_Courses">
+          <End Role="Department" Type="Self.Department" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Enrollment_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Enrollment" Type="Self.Enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Enrollment">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Student_Enrollments">
+          <End Role="Person" Type="Self.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Enrollment" Type="Self.Enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Enrollment">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Course_Instructors_Source">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseInstructor" Type="Self.CourseInstructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="CourseInstructor">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Course_Instructors_Target">
+          <End Role="Person" Type="Self.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseInstructor" Type="Self.CourseInstructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CourseInstructor">
+              <PropertyRef Name="InstructorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Department_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="nvarchar" Mode="In" MaxLength="50" />
+          <Parameter Name="Budget" Type="money" Mode="In" />
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="InstructorID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Department_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DepartmentID" Type="int" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" MaxLength="50" />
+          <Parameter Name="Budget" Type="money" Mode="In" />
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="InstructorID" Type="int" Mode="In" />
+          <Parameter Name="RowVersion_Original" Type="rowversion" Mode="In" />
+        </Function>
+        <Function Name="Department_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DepartmentID" Type="int" Mode="In" />
+          <Parameter Name="RowVersion_Original" Type="rowversion" Mode="In" />
+        </Function>
+        <EntityContainer Name="CodeFirstDatabase">
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" Table="Course" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" Table="Department" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" Table="Person" />
+          <EntitySet Name="OfficeAssignment" EntityType="Self.OfficeAssignment" Schema="dbo" Table="OfficeAssignment" />
+          <EntitySet Name="Enrollment" EntityType="Self.Enrollment" Schema="dbo" Table="Enrollment" />
+          <EntitySet Name="CourseInstructor" EntityType="Self.CourseInstructor" Schema="dbo" Table="CourseInstructor" />
+          <AssociationSet Name="OfficeAssignment_Instructor" Association="Self.OfficeAssignment_Instructor">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="OfficeAssignment" EntitySet="OfficeAssignment" />
+          </AssociationSet>
+          <AssociationSet Name="Department_Administrator" Association="Self.Department_Administrator">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Department" EntitySet="Department" />
+          </AssociationSet>
+          <AssociationSet Name="Department_Courses" Association="Self.Department_Courses">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="Enrollment_Course" Association="Self.Enrollment_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Enrollment" EntitySet="Enrollment" />
+          </AssociationSet>
+          <AssociationSet Name="Student_Enrollments" Association="Self.Student_Enrollments">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Enrollment" EntitySet="Enrollment" />
+          </AssociationSet>
+          <AssociationSet Name="Course_Instructors_Source" Association="Self.Course_Instructors_Source">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="CourseInstructor" EntitySet="CourseInstructor" />
+          </AssociationSet>
+          <AssociationSet Name="Course_Instructors_Target" Association="Self.Course_Instructors_Target">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="CourseInstructor" EntitySet="CourseInstructor" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </StorageModels>
+  </Runtime>
+  <Designer>
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="ProcessDependentTemplatesOnSave" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <Diagrams >
+      <Diagram DiagramId="8ebfddfc5ee74020b5658e01bcc744f2" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="ContosoUniversity.DAL.Course" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContosoUniversity.DAL.Department" Width="1.5" PointX="6.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContosoUniversity.DAL.Instructor" Width="1.5" PointX="3.375" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContosoUniversity.DAL.OfficeAssignment" Width="1.5" PointX="3.625" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContosoUniversity.DAL.Enrollment" Width="1.5" PointX="0.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContosoUniversity.DAL.Student" Width="1.5" PointX="0.625" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContosoUniversity.DAL.Person" Width="1.5" PointX="0.625" PointY="0.5" IsExpanded="true" />
+        <InheritanceConnector EntityType="ContosoUniversity.DAL.Instructor" ManuallyRouted="false" />
+        <InheritanceConnector EntityType="ContosoUniversity.DAL.Student" ManuallyRouted="false" />
+        <AssociationConnector Association="ContosoUniversity.DAL.OfficeAssignment_Instructor" ManuallyRouted="false" />
+        <AssociationConnector Association="ContosoUniversity.DAL.Department_Administrator" ManuallyRouted="false" />
+        <AssociationConnector Association="ContosoUniversity.DAL.Department_Courses" ManuallyRouted="false" />
+        <AssociationConnector Association="ContosoUniversity.DAL.Enrollment_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="ContosoUniversity.DAL.Student_Enrollments" ManuallyRouted="false" />
+        <AssociationConnector Association="ContosoUniversity.DAL.Course_Instructors" ManuallyRouted="false" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</Edmx>
