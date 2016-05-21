@@ -2,9 +2,9 @@
 Getting Started with EF 6 using MVC 5
 ====================================
 
-1.Getting Started with Entity Framework 6 Code First using MVC 5
+[1.Getting Started with Entity Framework 6 Code First using MVC 5](https://plumwine.me/mvc5-entity-framework-create-data-type)
 
-2.Implementing Basic CRUD Functionality
+[2.Implementing Basic CRUD Functionality](https://plumwine.me/mvc5-entity-framework-implementing-basic-crud-functionality)
 
 3.Sorting, Filtering, and Paging
 
