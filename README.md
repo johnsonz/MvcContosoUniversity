@@ -6,7 +6,7 @@ Getting Started with EF 6 using MVC 5
 
 [2.Implementing Basic CRUD Functionality](https://plumwine.me/mvc5-entity-framework-implementing-basic-crud-functionality)
 
-3.Sorting, Filtering, and Paging
+[3.Sorting, Filtering, and Paging](https://plumwine.me/mvc5-entity-framework-sortingfiltering-paging)
 
 4.Connection Resiliency and Command Interception
 
