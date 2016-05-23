@@ -8,7 +8,7 @@ Getting Started with EF 6 using MVC 5
 
 [3.Sorting, Filtering, and Paging](https://plumwine.me/mvc5-entity-framework-sorting-filtering-paging)
 
-4.Connection Resiliency and Command Interception
+[4.Connection Resiliency and Command Interception](https://plumwine.me/mvc5-entity-framework-connection-resiliency-and-command-interception/)
 
 5.Code First Migrations and Deployment
 
