@@ -10,7 +10,7 @@ Getting Started with EF 6 using MVC 5
 
 [4.Connection Resiliency and Command Interception](https://plumwine.me/mvc5-entity-framework-connection-resiliency-and-command-interception/)
 
-5.Code First Migrations and Deployment
+[5.Code First Migrations and Deployment](https://plumwine.me/mvc5-entity-framework-code-first-migrations-and-deployment)
 
 6.Creating a More Complex Data Model
 
