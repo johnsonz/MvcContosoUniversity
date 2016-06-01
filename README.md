@@ -12,7 +12,7 @@ Getting Started with EF 6 using MVC 5
 
 [5.Code First Migrations and Deployment](https://plumwine.me/mvc5-entity-framework-code-first-migrations-and-deployment)
 
-6.Creating a More Complex Data Model
+[6.Creating a More Complex Data Model](https://plumwine.me/mvc5-entity-framework-creating-complex-data-model)
 
 7.Reading Related Data
 
