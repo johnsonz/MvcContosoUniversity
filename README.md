@@ -14,7 +14,7 @@ Getting Started with EF 6 using MVC 5
 
 [6.Creating a More Complex Data Model](https://plumwine.me/mvc5-entity-framework-creating-complex-data-model)
 
-7.Reading Related Data
+[7.Reading Related Data](https://plumwine.me/mvc5-entity-framework-reading-related-data)
 
 8.Updating Related Data 
 
