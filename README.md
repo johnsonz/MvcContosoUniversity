@@ -18,7 +18,7 @@ Getting Started with EF 6 using MVC 5
 
 [8.Updating Related Data](https://plumwine.me/mvc5-entity-framework-updating-related-data) 
 
-9.Async and Stored Procedures 
+[9.Async and Stored Procedures](https://plumwine.me/mvc5-entity-framework-async-and-stored-procedures)
 
 10.Handling Concurrency 
 
