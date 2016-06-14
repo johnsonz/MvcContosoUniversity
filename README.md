@@ -20,7 +20,7 @@ Getting Started with EF 6 using MVC 5
 
 [9.Async and Stored Procedures](https://plumwine.me/mvc5-entity-framework-async-and-stored-procedures)
 
-10.Handling Concurrency 
+[10.Handling Concurrency](https://plumwine.me/mvc5-entity-framework-handling-concurrency)
 
 11.Implementing Inheritance 
 
