@@ -22,6 +22,6 @@ Getting Started with EF 6 using MVC 5
 
 [10.Handling Concurrency](https://plumwine.me/mvc5-entity-framework-handling-concurrency)
 
-11.Implementing Inheritance 
+[11.Implementing Inheritance](https://plumwine.me/mvc5-entity-framework-implementing-inheritance)
 
 12.Advanced Entity Framework 6 Scenarios 
