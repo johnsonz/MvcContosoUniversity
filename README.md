@@ -24,4 +24,4 @@ Getting Started with EF 6 using MVC 5
 
 [11.Implementing Inheritance](https://plumwine.me/mvc5-entity-framework-implementing-inheritance)
 
-12.Advanced Entity Framework 6 Scenarios 
+[12.Advanced Entity Framework 6 Scenarios](https://plumwine.me/mvc5-entity-framework-advanced-6-scenarios)
